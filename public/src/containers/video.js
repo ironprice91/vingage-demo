@@ -9,7 +9,8 @@ export default class Video extends Component {
 
     return (
       <div>
-        <video src={this.props.video.videoSrc} controls></video>
+        <h3>{this.props.video.title}</h3>
+        <video id={this.props.video._id} src={this.props.video.videoSrc} controls></video>
       </div>
     );
   }
