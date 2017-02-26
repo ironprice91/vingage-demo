@@ -3,7 +3,7 @@ const VideoData = require("../models/videoModels");
 const bodyParser = require("body-parser");
 
 module.exports = function(app) {
-  let baseURL = "/api/";
+  let baseURL = "/api/video/";
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -16,7 +16,7 @@ module.exports = function(app) {
   });
 
   // get single video
-  app.get(`${baseURL}video/:id`, (req, res) => {
+  app.get(`${baseURL}:id`, (req, res) => {
       VideoData.find({_id: req.params.id}, (err, data) => {
           if ( err ) { throw err; }
           res.send(data);
@@ -24,7 +24,7 @@ module.exports = function(app) {
   });
 
   // add note
-  app.post(`${baseURL}video/note`, (req, res) => {
+  app.post(`${baseURL}note`, (req, res) => {
       let videoID = req.body.id,
           data = req.body,
           id = videoID;
@@ -41,7 +41,7 @@ module.exports = function(app) {
   });
 
   // update note
-  app.post(`${baseURL}video/:videoID/note/:id`, (req, res) => {
+  app.post(`${baseURL}:videoID/note/:id`, (req, res) => {
       let videoID = req.params.videoID,
           noteID = req.params.id,
           newNote = req.body.note;
@@ -49,6 +49,17 @@ module.exports = function(app) {
       VideoData.update({_id: videoID, "notes._id": noteID}, {$set: {"notes.$.note": newNote}}, (err, data) => {
           if ( err ) { throw err; }
           res.send(`Update note: ${noteID} for video ${videoID}`);
+      });
+  });
+
+  // delete note
+  app.delete(`${baseURL}:videoID/note/:id`, (req, res) => {
+      let videoID = req.params.videoID,
+          noteID = req.params.id;
+
+      VideoData.update({_id: videoID}, {$pull: {"notes": {_id: noteID}}}, (err, data) => {
+          if ( err ) { throw err; }
+          res.send(`Deleted note ${noteID}`);
       });
   });
 
