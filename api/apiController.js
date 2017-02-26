@@ -7,12 +7,49 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  // get video
+  // get all videos
   app.get(`${baseURL}all`, (req, res) => {
     VideoData.find({}, (err, data) => {
         if ( err ) { throw err; }
         res.send(data);
     });
+  });
+
+  // get single video
+  app.get(`${baseURL}video/:id`, (req, res) => {
+      VideoData.find({_id: req.params.id}, (err, data) => {
+          if ( err ) { throw err; }
+          res.send(data);
+      });
+  });
+
+  // add note
+  app.post(`${baseURL}video/note`, (req, res) => {
+      let videoID = req.body.id,
+          data = req.body,
+          id = videoID;
+
+      let newNote = {};
+      newNote.time = data.time;
+      newNote.displayTime = data.displayTime;
+      newNote.note = data.note;
+
+      VideoData.findOneAndUpdate({_id:id}, {$push: {notes: newNote}}, {safe: true, upsert: true}, (err, data) => {
+          if ( err ) { throw err; }
+          res.send(`Added Note to Video: ${videoID}`);
+      })
+  });
+
+  // update note
+  app.post(`${baseURL}video/:videoID/note/:id`, (req, res) => {
+      let videoID = req.params.videoID,
+          noteID = req.params.id,
+          newNote = req.body.note;
+
+      VideoData.update({_id: videoID, "notes._id": noteID}, {$set: {"notes.$.note": newNote}}, (err, data) => {
+          if ( err ) { throw err; }
+          res.send(`Update note: ${noteID} for video ${videoID}`);
+      });
   });
 
 
