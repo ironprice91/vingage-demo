@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Video from '../containers/video';
-import NoteHolder from '../containers/noteHolder';
+import VideoList from '../containers/videoList';
+import VideoNotesContainer from '../containers/videoNotes.container';
 import axios from 'axios';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      "getVideosCalled" : false,
-      "videos" : []
+      "videos" : [],
+      "getVideos": false
     };
   }
 
@@ -16,21 +16,24 @@ export default class App extends Component {
     axios.get("http://localhost:6060/api/video/all")
       .then((res) => {
         console.log(res.data);
-        this.setState({"getVideosCalled": true});
-        this.setState({"videos": res.data});
+        this.setState({
+          "videos": res.data,
+          "getVideos": true
+        });
       });
   }
 
   render() {
-    if ( !this.state.getVideosCalled ) {
+    if ( !this.state.getVideos ) {
       this.getVideos();
+      return null;
     }
 
     return (
       <div>
-        <div>React simple starter WHY yesss</div>
-        <Video videos={this.state.videos}/>
-        <NoteHolder/>
+        <div>Vingage demo</div>
+        <VideoList videos={this.state.videos}/>
+        <VideoNotesContainer videos={this.state.videos}/>
       </div>
     );
   }

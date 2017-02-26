@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
 export default class Video extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    if ( this.props.videos.length === 0 ) { return null; }
+
     return (
       <div>
-        <div>This is where the video will live!</div>
-        <video src={this.props.videos[2].videoSrc} controls></video>
+        <video src={this.props.video.videoSrc} controls></video>
       </div>
     );
   }
