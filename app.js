@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/vingage");
 // react index.html
 const indexPath = path.join(__dirname, "/index.html");
 
-app.use("/", express.static(path.join(__dirname, "./public")))
+app.use("/public/", express.static(path.join(__dirname, "./public")))
 
 app.get("/", (req, res) => {
       res.sendFile(indexPath);
@@ -21,5 +21,5 @@ app.get("/", (req, res) => {
 apiController(app);
 
 app.listen(port, () => {
-    console.log(`listening on port ${port}`);
+    console.log(`listening on port ${port}: http://localhost:${port}`);
 });
