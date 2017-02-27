@@ -14,15 +14,19 @@ let videoSchema = new Schema({
 
 /*
 use robomongo
-EXAMPLE
+EXAMPLE document
 {
-  title: 'BackboneJS',
-  videoSrc: 'https://s3.amazonaws.com/refactoru/public/Backbonejs+Tutorial+-+Beginners.mp4',
-  notes: [{
-  	time: 6,
-  	displayTime: "0:06",
-  	note: 'This is a note I want on the page'
-	}]
+    "_id" : ObjectId("58b4411c3c7f435dfedbe031"),
+    "title" : "BackboneJS",
+    "videoSrc" : "https://s3.amazonaws.com/refactoru/public/Backbonejs+Tutorial+-+Beginners.mp4",
+    "notes" : [
+        {
+            "_id" : ObjectId("58b4439bbb271f459d588618"),
+            "time" : 0,
+            "displayTime" : "0:00",
+            "note" : "this is a new note"
+        }
+    ]
 }
 */
 

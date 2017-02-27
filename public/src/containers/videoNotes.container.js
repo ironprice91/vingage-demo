@@ -7,7 +7,7 @@ export default class VideoNotesContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      "featuredVideo" : this.props.videos[2]
+      "featuredVideo" : this.props.videos[0]
     };
   }
 

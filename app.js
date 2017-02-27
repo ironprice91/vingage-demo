@@ -4,6 +4,7 @@ const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const apiController = require("./api/apiController");
+const cors = require("cors");
 
 let port = process.env.PORT || 6060;
 let env = process.env.NODE_ENV || "dev";
@@ -15,15 +16,8 @@ const indexPath = path.join(__dirname, "/index.html");
 
 app.use("/public/", express.static(path.join(__dirname, "./public")));
 
-app.use(function(req, res, next) {
-  if ( env !== "dev" ) {
-    next();
-    return;
-  }
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// enable CORS for dev since API is on different port
+if ( env === "dev" ) { app.use(cors()); }
 
 app.get("/", (req, res) => {
       res.sendFile(indexPath);

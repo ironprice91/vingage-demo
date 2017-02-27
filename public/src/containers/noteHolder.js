@@ -17,8 +17,10 @@ export default class NoteHolder extends Component {
 
   getNotes() {
       let noteMarkup = [];
+      let videoID = this.props.video._id;
+
       this.props.video.notes.forEach((note) => {
-          noteMarkup.push(<Note key={note._id} note={note.note} displayTime={note.displayTime} time={note.time}></Note>);
+          noteMarkup.push(<Note videoID={videoID} key={note._id} note={note.note} displayTime={note.displayTime} time={note.time} id={note._id} delete={this.deleteNote.bind(this)}></Note>);
       });
 
       this.sortNoteTime(noteMarkup);
@@ -40,13 +42,31 @@ export default class NoteHolder extends Component {
         note = res.data;
 
         this.setState({
-          "notes": this.state.notes.concat([<Note key={note._id} note={note.note} displayTime={note.displayTime} time={note.time}></Note>]).sort((a,b) => a.props.time > b.props.time),
+          "notes": this.state.notes.concat([<Note key={note._id} note={note.note} displayTime={note.displayTime} time={note.time} id={note._id} delete={this.deleteNote.bind(this)}></Note>]).sort((a,b) => a.props.time > b.props.time),
           "note": ""
         });
 
     }).catch((err) => {
         if ( err ){ throw err; }
     });
+  }
+
+  deleteNote(e) {
+    e.preventDefault();
+
+    let videoID = e.target.getAttribute("data-video-id");
+    let noteID = e.target.getAttribute("data-note-id");
+    let deleteURL = `http://localhost:6060/api/video/${videoID}/note/${noteID}`;
+    let updatedNoteState = this.state.notes.filter(note => noteID !== note.key);
+
+    axios.delete(deleteURL).then((res) => {
+        this.setState({
+          "notes": updatedNoteState
+        });
+    }).catch((err) => {
+      if ( err ) { throw err; }
+    });
+
   }
 
   convertToDisplayTime(float) {
