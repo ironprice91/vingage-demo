@@ -109,13 +109,14 @@ export default class NoteHolder extends Component {
   render() {
 
     return (
-      <div>
-        <form id="newNoteForm" onSubmit={this.addNote.bind(this)}>
-          <input type="text" placeholder="Add your note here" onChange={this.handleChange.bind(this)} value={this.state.note}/>
-        </form>
-        <ul>
+      <div className="col-lg-4 col-md-4 col-sm-12">
+        <h3>Notes</h3>
+        <ul className="list-group">
           {this.state.notes}
         </ul>
+        <form id="newNoteForm" onSubmit={this.addNote.bind(this)}>
+          <input className="form-control col-sm-12 input-lg" type="text" placeholder="Add your note here" onChange={this.handleChange.bind(this)} value={this.state.note}/>
+        </form>
       </div>
     );
   }

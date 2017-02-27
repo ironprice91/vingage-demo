@@ -35,21 +35,31 @@ export default class Note extends Component {
     let note = this.props.note;
     let noteMarkup = (this.state.edit) ? [
       <div key={`${noteID}-editor`}>
-        <p><span>Editing Note @ {this.props.displayTime}</span></p>
+        <p className="lead"><span>Editing Note @ {this.props.displayTime}</span></p>
         <form onSubmit={this.props.edit.bind(this, this.toggleEdit.bind(this))} data-video-id={this.props.videoID} data-note-id={`${noteID}`}>
-          <input name="" id="" cols="30" rows="3" value={this.state.noteText} onChange={this.handleChange.bind(this)}></input>
+          <textarea className="edit-note-form form-control col-sm-12" cols="30" rows="3" value={this.state.noteText} onChange={this.handleChange.bind(this)}></textarea>
         </form>
       </div>
-    ] : [<p key={`${noteID}-note-time`}><a data-video-id={this.props.videoID} href="#" onClick={this.setVideoTime.bind(this)}>{this.props.displayTime}</a> - {this.state.noteText}</p>];
+    ] : [
+      <div key={`${noteID}-note-time`}>
+        <p className="lead" >
+          <a data-video-id={this.props.videoID} href="#" onClick={this.setVideoTime.bind(this)}>{this.props.displayTime}</a> - {this.state.noteText}
+        </p>
+      </div>
+    ];
 
     return (
       <div id={`note-id-${noteID}`}>
         <li
+          className="list-group-item"
           data-videoid={this.props.videoID}
           data-note-time={this.props.time}>
+
+          <a href="#" className="delete" data-video-id={this.props.videoID} data-note-id={this.props.id} onClick={this.props.delete}>x</a>
+
           {noteMarkup}
-          <button data-video-id={this.props.videoID} data-note-id={`${noteID}`} onClick={this.props.delete}>Delete</button>
-          <button data-video-id={this.props.videoID} data-note-id={`${noteID}`} onClick={this.toggleEdit.bind(this)}>Edit</button>
+
+          <button  type="button" className="btn btn-success btn-xs" data-video-id={this.props.videoID} data-note-id={`${noteID}`} onClick={this.toggleEdit.bind(this)}>{this.state.edit ? "Submit" : "Edit"}</button>
         </li>
       </div>
     );

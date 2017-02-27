@@ -1,0 +1,8 @@
+.delete {
+  float: right;
+  color: rgb(201, 0, 0);
+}
+
+.edit-note-form {
+  margin-bottom: 10px;
+}

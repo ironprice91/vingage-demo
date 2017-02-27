@@ -29,7 +29,7 @@ export default class App extends Component {
     }
 
     return (
-      <div>
+      <div className="container">
         <div>Vingage demo</div>
         <VideoList videos={this.state.videos}/>
         <VideoNotesContainer videos={this.state.videos}/>

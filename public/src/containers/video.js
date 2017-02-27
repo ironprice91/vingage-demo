@@ -8,9 +8,11 @@ export default class Video extends Component {
   render() {
 
     return (
-      <div>
+      <div className="col-lg-8 col-md-12 col-sm-12">
         <h3>{this.props.video.title}</h3>
-        <video id={this.props.video._id} src={this.props.video.videoSrc} controls></video>
+        <div className="embed-responsive embed-responsive-16by9">
+          <video className="embed-responsive-item" id={this.props.video._id} src={this.props.video.videoSrc} controls></video>
+        </div>
       </div>
     );
   }

@@ -14,7 +14,7 @@ export default class VideoNotesContainer extends Component {
   // to do is to filter for youtube or natve html5
   render() {
     return (
-      <div>
+      <div className="row">
         <Video video={this.state.featuredVideo}/>
         <NoteHolder video={this.state.featuredVideo}/>
       </div>
