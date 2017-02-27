@@ -29,10 +29,15 @@ export default class App extends Component {
     }
 
     return (
-      <div className="container">
-        <div>Vingage demo</div>
-        <VideoList videos={this.state.videos}/>
-        <VideoNotesContainer videos={this.state.videos}/>
+      <div>
+
+        <nav className="vingage-nav navbar navbar-inverse">
+          <div href="#" className="navbar-brand">Vingage Demo</div>
+        </nav>
+        <div className="container">
+          <VideoList videos={this.state.videos}/>
+          <VideoNotesContainer videos={this.state.videos}/>
+        </div>
       </div>
     );
   }
