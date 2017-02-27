@@ -15,7 +15,6 @@ export default class App extends Component {
   getVideos() {
     axios.get("http://localhost:6060/api/video/all")
       .then((res) => {
-        console.log(res.data);
         this.setState({
           "videos": res.data,
           "getVideos": true

@@ -34,9 +34,9 @@ module.exports = function(app) {
       newNote.displayTime = data.displayTime;
       newNote.note = data.note;
 
-      VideoData.findOneAndUpdate({_id:id}, {$push: {notes: newNote}}, {safe: true, upsert: true}, (err, data) => {
+      VideoData.findOneAndUpdate({_id:id}, {$push: {notes: newNote}}, {safe: true, upsert: true, new: true}, (err, data) => {
           if ( err ) { throw err; }
-          res.send(`Added Note to Video: ${videoID}`);
+          res.send(data.notes[data.notes.length - 1]);
       })
   });
 
