@@ -33,6 +33,11 @@ export default class App extends Component {
 
         <nav className="vingage-nav navbar navbar-inverse">
           <div href="#" className="navbar-brand">Vingage Demo</div>
+          <ul className="nav navbar-nav">
+            <li>
+              <a href="#">Videos</a>
+            </li>
+          </ul>
         </nav>
         <div className="container">
           <VideoList videos={this.state.videos}/>
