@@ -24,17 +24,23 @@ export default class Note extends Component {
     });
   }
 
+  setVideoTime(e) {
+    e.preventDefault();
+    let videoID = e.target.getAttribute("data-video-id");
+    document.getElementById(videoID).currentTime = this.props.time;
+  }
+
   render() {
     let noteID = this.props.id;
     let note = this.props.note;
     let noteMarkup = (this.state.edit) ? [
-      <div>
+      <div key={`${noteID}-editor`}>
         <p><span>Editing Note @ {this.props.displayTime}</span></p>
         <form onSubmit={this.props.edit.bind(this, this.toggleEdit.bind(this))} data-video-id={this.props.videoID} data-note-id={`${noteID}`}>
           <input name="" id="" cols="30" rows="3" value={this.state.noteText} onChange={this.handleChange.bind(this)}></input>
         </form>
       </div>
-    ] : [<p><span>{this.props.displayTime}</span> - {this.state.noteText}</p>];
+    ] : [<p key={`${noteID}-note-time`}><a data-video-id={this.props.videoID} href="#" onClick={this.setVideoTime.bind(this)}>{this.props.displayTime}</a> - {this.state.noteText}</p>];
 
     return (
       <div id={`note-id-${noteID}`}>
