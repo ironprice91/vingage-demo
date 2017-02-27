@@ -8,18 +8,18 @@ export default class VideoList extends Component {
   getVideoList() {
     let videoList = [];
     this.props.videos.forEach((video) => {
-      videoList.push(<li key={video._id}>{video.videoSrc}</li>);
+      videoList.push(<li key={video._id} data-video-src={video.videoSrc}><img src={video.thumbnail} alt=""/></li>);
     });
 
     return videoList;
   }
 
   render() {
+
     if ( this.props.videos.length === 0 ) { return null; }
     return (
       <div>
-        <div>This is a list of videos</div>
-        <ul>
+        <ul className="list-inline">
           {this.getVideoList()}
         </ul>
       </div>
