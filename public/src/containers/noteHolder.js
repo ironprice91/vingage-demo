@@ -5,7 +5,12 @@ import axios from 'axios';
 export default class NoteHolder extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        "note": null
+    };
+
     this.addNote.bind(this);
+    this.handleChange.bind(this);
   }
 
   getNotes() {
@@ -19,11 +24,13 @@ export default class NoteHolder extends Component {
 
   addNote(event) {
     event.preventDefault();
+
     let videoEl = document.getElementById(this.props.video._id);
     axios.post("http://localhost:6060/api/video/note", {
       "id": this.props.video._id,
       "time": parseFloat(videoEl.currentTime).toFixed(2),
-      "displayTime": this.convertToDisplayTime(videoEl.currentTime)
+      "displayTime": this.convertToDisplayTime(videoEl.currentTime),
+      "note": this.state.note
     });
   }
 
@@ -36,13 +43,18 @@ export default class NoteHolder extends Component {
     return (secondsArray.length === 1) ? `${min}:0${roundedSeconds}` : `${min}:${roundedSeconds}`;
   }
 
+  handleChange(event) {
+    this.setState({
+      "note": event.target.value
+    });
+  }
+
   render() {
-    console.log(this.props.video);
+
     return (
       <div>
-        <form method="POST">
-          <input type="text" placeholder="Add your note here"/>
-          <input type="submit" onSubmit={this.addNote}/>
+        <form onSubmit={this.addNote.bind(this)}>
+          <input type="text" placeholder="Add your note here" onChange={this.handleChange.bind(this)} value={this.state.note}/>
         </form>
         <ul>
           {this.getNotes()}
