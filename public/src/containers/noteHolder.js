@@ -30,6 +30,7 @@ export default class NoteHolder extends Component {
   addNote(event) {
     event.preventDefault();
     let videoEl = document.getElementById(this.props.video._id),
+        videoID = this.props.video._id,
         note = null;
 
     axios.post("http://localhost:6060/api/video/note", {
@@ -42,7 +43,7 @@ export default class NoteHolder extends Component {
         note = res.data;
 
         this.setState({
-          "notes": this.state.notes.concat([<Note key={note._id} note={note.note} displayTime={note.displayTime} time={note.time} id={note._id} delete={this.deleteNote.bind(this)} edit={this.saveEditedNote.bind(this)}></Note>]).sort((a,b) => a.props.time > b.props.time),
+          "notes": this.state.notes.concat([<Note videoID={videoID} key={note._id} note={note.note} displayTime={note.displayTime} time={note.time} id={note._id} delete={this.deleteNote.bind(this)} edit={this.saveEditedNote.bind(this)}></Note>]).sort((a,b) => a.props.time > b.props.time),
           "note": ""
         });
 
