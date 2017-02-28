@@ -2,6 +2,10 @@
   border-radius: 0px;
 }
 
+div.vingage-brand.navbar-brand {
+  color: #79BD0F;
+}
+
 .video-list {
   height: 0px;
   overflow: hidden;

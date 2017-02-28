@@ -48,7 +48,7 @@ export default class App extends Component {
       <div>
 
         <nav className="vingage-nav navbar navbar-inverse">
-          <div href="#" className="navbar-brand">Vingage Demo</div>
+          <div href="#" className="vingage-brand navbar-brand">Vingage Demo</div>
           <ul className="nav navbar-nav">
             <li>
               <a onClick={this.toggleVideos.bind(this)} href="#">Videos</a>
