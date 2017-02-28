@@ -29,6 +29,15 @@ EXAMPLE document
         }
     ]
 }
+
+YOUTUBE EXAMPLE
+{
+    "_id" : ObjectId("58b5918a3c7f435dfedbe032"),
+    "title" : "4 Reasons the NBA's \"One & Done\" rule needs to go",
+    "videoSrc" : "https://www.youtube.com/watch?v=7UsqUZcXYHM",
+    "thumbnail" : "https://img.youtube.com/vi/7UsqUZcXYHM/mqdefault.jpg",
+    "notes" : []
+}
 */
 
 let Video = mongoose.model("video", videoSchema);
