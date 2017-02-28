@@ -31,7 +31,7 @@ export default class NoteHolder extends Component {
               id={note._id}
               delete={this.deleteNote.bind(this)}
               edit={this.saveEditedNote.bind(this)}
-              youtube={(function(){return (nextProps) ? nextProps.youtub : this.props.youtube}).bind(this)}>
+              youtube={(function(){return (nextProps) ? nextProps.youtube : this.props.youtube}).bind(this)}>
             </Note>);
       });
 
