@@ -47,7 +47,9 @@ export default class NoteHolder extends Component {
         currentTime = (type === "youtube") ? youtube.target.getCurrentTime() : videoEl.currentTime,
         note = null;
 
-    axios.post("http://localhost:6060/api/video/note", {
+    let baseURL = process.env.NODE_ENV === "dev" ? "http://localhost:6060" : "";
+
+    axios.post("${baseURL}/api/video/note", {
       "id": this.props.video._id,
       "time": parseFloat(currentTime).toFixed(2),
       "displayTime": this.convertToDisplayTime(currentTime, type),
@@ -78,9 +80,10 @@ export default class NoteHolder extends Component {
   deleteNote(e) {
     e.preventDefault();
 
+    let baseURL = process.env.NODE_ENV === "dev" ? "http://localhost:6060" : "";
     let videoID = e.target.getAttribute("data-video-id");
     let noteID = e.target.getAttribute("data-note-id");
-    let deleteURL = `http://localhost:6060/api/video/${videoID}/note/${noteID}`;
+    let deleteURL = `${baseURL}/api/video/${videoID}/note/${noteID}`;
     let updatedNoteState = this.state.notes.filter(note => noteID !== note.key);
 
     axios.delete(deleteURL).then((res) => {
@@ -96,10 +99,11 @@ export default class NoteHolder extends Component {
   saveEditedNote(callback, e) {
 
       e.preventDefault();
+      let baseURL = process.env.NODE_ENV === "dev" ? "http://localhost:6060" : "";
       let videoID = e.target.getAttribute("data-video-id");
       let noteID = e.target.getAttribute("data-note-id");
       let newNote = e.target.firstChild.value;
-      let editURL = `http://localhost:6060/api/video/${videoID}/note/${noteID}`;
+      let editURL = `${baseURL}/api/video/${videoID}/note/${noteID}`;
 
       axios.post(editURL, {"note": newNote}).then((res) => {
         if ( typeof callback === "function" ) { callback(); }

@@ -23,7 +23,12 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   plugins: [
-		new DashboardPlugin()
+		new DashboardPlugin(),
+    new webpack.DefinePlugin({
+        "process.env" : {
+          "NODE_ENV": process.env.NODE_ENV ? JSON.stringify('production') : JSON.stringify('dev')
+        }
+    })
 	],
   devServer: {
     historyApiFallback: true,
