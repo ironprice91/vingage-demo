@@ -27,7 +27,14 @@ module.exports = function(app) {
   app.post(`${baseURL}note`, (req, res) => {
       let videoID = req.body.id,
           data = req.body,
-          id = videoID;
+          id = videoID,
+          notesLength = data.notes;
+
+      // limit to 5 notes so you won't get charged by mlab
+      if ( notesLength > 5 ) {
+        res.send({"limit": "Demo is limited to 5 notes pre video!"});
+        return;
+      }
 
       let newNote = {};
       newNote.time = data.time;

@@ -8,7 +8,8 @@ export default class NoteHolder extends Component {
     this.state = {
         "note": null,
         "getNotes": true,
-        "notes" : this.getNotes()
+        "notes" : this.getNotes(),
+        "showAlert": "hide"
     };
 
     this.addNote.bind(this);
@@ -49,14 +50,23 @@ export default class NoteHolder extends Component {
 
     let baseURL = process.env.NODE_ENV === "dev" ? "http://localhost:6060" : "";
 
-    axios.post("${baseURL}/api/video/note", {
+    axios.post(`${baseURL}/api/video/note`, {
       "id": this.props.video._id,
       "time": parseFloat(currentTime).toFixed(2),
       "displayTime": this.convertToDisplayTime(currentTime, type),
-      "note": this.state.note
+      "note": this.state.note,
+      "notes": this.state.notes.length + 1
     }).then((res) => {
 
         note = res.data;
+
+        if ( note && note.limit ) {
+          this.setState({
+            "note" : "",
+            "showAlert": "show"
+          });
+          return;
+        }
 
         this.setState({
           "notes": this.state.notes.concat([<Note
@@ -90,6 +100,9 @@ export default class NoteHolder extends Component {
         this.setState({
           "notes": updatedNoteState
         });
+        if ( this.state.notes.length < 5 ) {
+            this.setState({"showAlert": "hide"});
+        }
     }).catch((err) => {
       if ( err ) { throw err; }
     });
@@ -133,6 +146,12 @@ export default class NoteHolder extends Component {
     });
   }
 
+  closeAlert() {
+    this.setState({
+        "showAlert": "hide"
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({"notes": this.getNotes(nextProps)});
   }
@@ -141,6 +160,10 @@ export default class NoteHolder extends Component {
 
     return (
       <div className="col-lg-4 col-md-4 col-sm-12">
+        <div className={`alert alert-danger ${this.state.showAlert} alert-dismissable`}>
+          <a href="#" className="close" data-dismiss="alert" aria-label="close" onClick={this.closeAlert.bind(this)}>&times;</a>
+          <strong>Info!</strong> Demo is limited to 5 notes per video.
+        </div>
         <h3>Notes</h3>
         <ul className="list-group">
           {this.state.notes}
