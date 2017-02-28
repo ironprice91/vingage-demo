@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 let videoSchema = new Schema({
   title: String,
   videoSrc: String,
-  thumbnail: {type: String, default: "http://www.fillmurray.com/320/180"}
+  thumbnail: {type: String, default: "http://www.fillmurray.com/320/180"},
   notes: [{
       time: Number,
       displayTime: String,

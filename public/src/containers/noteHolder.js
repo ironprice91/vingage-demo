@@ -27,16 +27,18 @@ export default class NoteHolder extends Component {
       return noteMarkup;
   }
 
-  addNote(event) {
+  addNote(type, youtube, event) {
     event.preventDefault();
+
     let videoEl = document.getElementById(this.props.video._id),
         videoID = this.props.video._id,
+        currentTime = (type === "youtube") ? youtube.target.getCurrentTime() : videoEl.currentTime,
         note = null;
 
     axios.post("http://localhost:6060/api/video/note", {
       "id": this.props.video._id,
-      "time": parseFloat(videoEl.currentTime).toFixed(2),
-      "displayTime": this.convertToDisplayTime(videoEl.currentTime),
+      "time": parseFloat(currentTime).toFixed(2),
+      "displayTime": this.convertToDisplayTime(currentTime, type),
       "note": this.state.note
     }).then((res) => {
 
@@ -85,9 +87,9 @@ export default class NoteHolder extends Component {
       });
   }
 
-  convertToDisplayTime(float) {
-    let min = Math.floor(float / 60),
-        seconds = float - (min * 60),
+  convertToDisplayTime(num, type) {
+    let min = Math.floor(num / 60),
+        seconds = num - (min * 60),
         roundedSeconds = Math.floor(seconds),
         secondsArray = roundedSeconds.toString().split('');
 
@@ -114,7 +116,7 @@ export default class NoteHolder extends Component {
         <ul className="list-group">
           {this.state.notes}
         </ul>
-        <form id="newNoteForm" onSubmit={this.addNote.bind(this)}>
+        <form id="newNoteForm" onSubmit={this.addNote.bind(this, this.props.player, this.props.youtube)}>
           <input className="form-control col-sm-12 input-lg" type="text" placeholder="Add your note here" onChange={this.handleChange.bind(this)} value={this.state.note}/>
         </form>
       </div>
