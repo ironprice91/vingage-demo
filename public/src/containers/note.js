@@ -38,6 +38,7 @@ export default class Note extends Component {
         <p className="lead"><span>Editing Note @ {this.props.displayTime}</span></p>
         <form onSubmit={this.props.edit.bind(this, this.toggleEdit.bind(this))} data-video-id={this.props.videoID} data-note-id={`${noteID}`}>
           <textarea className="edit-note-form form-control col-sm-12" cols="30" rows="3" value={this.state.noteText} onChange={this.handleChange.bind(this)}></textarea>
+          <button  type="submit" className="btn btn-success btn-xs" data-video-id={this.props.videoID} data-note-id={`${noteID}`}>Submit</button>
         </form>
       </div>
     ] : [
@@ -45,6 +46,7 @@ export default class Note extends Component {
         <p className="lead" >
           <a data-video-id={this.props.videoID} href="#" onClick={this.setVideoTime.bind(this)}>{this.props.displayTime}</a> - {this.state.noteText}
         </p>
+        <button  type="button" className="btn btn-success btn-xs" data-video-id={this.props.videoID} data-note-id={`${noteID}`} onClick={this.toggleEdit.bind(this)}>Edit</button>
       </div>
     ];
 
@@ -59,7 +61,6 @@ export default class Note extends Component {
 
           {noteMarkup}
 
-          <button  type="button" className="btn btn-success btn-xs" data-video-id={this.props.videoID} data-note-id={`${noteID}`} onClick={this.toggleEdit.bind(this)}>{this.state.edit ? "Submit" : "Edit"}</button>
         </li>
       </div>
     );
