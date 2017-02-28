@@ -2,6 +2,20 @@
   border-radius: 0px;
 }
 
+.video-list {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.6s;
+}
+
+.video-list.show-videos {
+  height: 180px;
+}
+
+.video-list.hide-videos {
+  height: 0px;
+}
+
 .delete {
   float: right;
   color: rgb(201, 0, 0);

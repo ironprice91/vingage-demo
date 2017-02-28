@@ -9,7 +9,8 @@ export default class App extends Component {
     this.state = {
       "videos" : [],
       "getVideos": false,
-      "index" : 0
+      "index" : 0,
+      "show": false
     };
   }
 
@@ -27,11 +28,21 @@ export default class App extends Component {
     this.setState({"index": index});
   }
 
+  toggleVideos(e) {
+    e.preventDefault();
+    if ( !this.state.show ) {
+      this.setState({"show": true});
+    } else {
+      this.setState({"show": false});
+    }
+  }
+
   render() {
     if ( !this.state.getVideos ) {
       this.getVideos();
       return null;
     }
+
 
     return (
       <div>
@@ -40,12 +51,12 @@ export default class App extends Component {
           <div href="#" className="navbar-brand">Vingage Demo</div>
           <ul className="nav navbar-nav">
             <li>
-              <a href="#">Videos</a>
+              <a onClick={this.toggleVideos.bind(this)} href="#">Videos</a>
             </li>
           </ul>
         </nav>
         <div className="container">
-          <VideoList videos={this.state.videos} click={this.setIndex.bind(this)}/>
+          <VideoList videos={this.state.videos} click={this.setIndex.bind(this)} show={this.state.show}/>
           <VideoNotesContainer videos={this.state.videos} activeVideo={this.state.index}/>
         </div>
       </div>

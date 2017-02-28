@@ -15,11 +15,12 @@ export default class VideoList extends Component {
   }
 
   render() {
-
+    let show = this.props.show ? "show-videos" : "hide-videos";
+    let classString = `video-list list-inline ${show}`;
     if ( this.props.videos.length === 0 ) { return null; }
     return (
       <div>
-        <ul className="list-inline">
+        <ul className={classString}>
           {this.getVideoList()}
         </ul>
       </div>
