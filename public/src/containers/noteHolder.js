@@ -15,11 +15,12 @@ export default class NoteHolder extends Component {
     this.handleChange.bind(this);
   }
 
-  getNotes() {
+  getNotes(nextProps) {
       let noteMarkup = [];
-      let videoID = this.props.video._id;
+      let videoID = (nextProps) ? nextProps.video._id : this.props.video._id;
+      let notes = (nextProps) ? nextProps.video.notes : this.props.video.notes;
 
-      this.props.video.notes.forEach((note) => {
+      notes.forEach((note) => {
           noteMarkup.push(
             <Note
               videoID={videoID}
@@ -30,7 +31,7 @@ export default class NoteHolder extends Component {
               id={note._id}
               delete={this.deleteNote.bind(this)}
               edit={this.saveEditedNote.bind(this)}
-              youtube={(function(){return this.props.youtube}).bind(this)}>
+              youtube={(function(){return (nextProps) ? nextProps.youtub : this.props.youtube}).bind(this)}>
             </Note>);
       });
 
@@ -126,6 +127,10 @@ export default class NoteHolder extends Component {
     this.setState({
       "note": event.target.value
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({"notes": this.getNotes(nextProps)});
   }
 
   render() {
