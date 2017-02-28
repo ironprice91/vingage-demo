@@ -7,13 +7,12 @@ export default class VideoNotesContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      "youtubeData" : null,
-      "featuredVideo" : this.props.videos[2]
+      "youtubeData" : null
     };
   }
 
   filterPlayer() {
-    let videoSrc = this.state.featuredVideo.videoSrc;
+    let videoSrc = this.props.videos[this.props.activeVideo].videoSrc;
     let videoType = "native";
 
     if ( videoSrc.match(/youtube/) && videoSrc.match(/youtube/).length === 1 ) {
@@ -30,8 +29,8 @@ export default class VideoNotesContainer extends Component {
   render() {
     return (
       <div className="row">
-        <Video player={this.filterPlayer()} video={this.state.featuredVideo} getData={this.getData.bind(this)}/>
-        <NoteHolder player={this.filterPlayer()} video={this.state.featuredVideo} youtube={this.state.youtubeData}/>
+        <Video player={this.filterPlayer()} video={this.props.videos[this.props.activeVideo]} getData={this.getData.bind(this)}/>
+        <NoteHolder player={this.filterPlayer()} video={this.props.videos[this.props.activeVideo]} youtube={this.state.youtubeData}/>
       </div>
     );
   }

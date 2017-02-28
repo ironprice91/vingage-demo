@@ -8,7 +8,8 @@ export default class App extends Component {
     super(props);
     this.state = {
       "videos" : [],
-      "getVideos": false
+      "getVideos": false,
+      "index" : 0
     };
   }
 
@@ -20,6 +21,10 @@ export default class App extends Component {
           "getVideos": true
         });
       });
+  }
+
+  setIndex(index) {
+    this.setState({"index": index});
   }
 
   render() {
@@ -40,8 +45,8 @@ export default class App extends Component {
           </ul>
         </nav>
         <div className="container">
-          <VideoList videos={this.state.videos}/>
-          <VideoNotesContainer videos={this.state.videos}/>
+          <VideoList videos={this.state.videos} click={this.setIndex.bind(this)}/>
+          <VideoNotesContainer videos={this.state.videos} activeVideo={this.state.index}/>
         </div>
       </div>
     );

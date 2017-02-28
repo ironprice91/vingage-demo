@@ -7,8 +7,8 @@ export default class VideoList extends Component {
 
   getVideoList() {
     let videoList = [];
-    this.props.videos.forEach((video) => {
-      videoList.push(<li key={video._id} data-video-src={video.videoSrc}><img src={video.thumbnail} alt=""/></li>);
+    this.props.videos.forEach((video, index) => {
+      videoList.push(<li key={video._id} onClick={this.props.click.bind(this, index)} data-video-src={video.videoSrc}><img src={video.thumbnail} alt=""/></li>);
     });
 
     return videoList;

@@ -29,7 +29,7 @@ export default class Note extends Component {
     let videoID = e.target.getAttribute("data-video-id");
     document.getElementById(videoID).currentTime = this.props.time;
 
-    if ( !target().target ) { return; }
+    if ( target() === null ) { return; }
     target().target.seekTo(this.props.time);
 
   }
