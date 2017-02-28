@@ -20,7 +20,7 @@ export default class NoteHolder extends Component {
       let videoID = this.props.video._id;
 
       this.props.video.notes.forEach((note) => {
-          noteMarkup.push(<Note videoID={videoID} key={note._id} note={note.note} displayTime={note.displayTime} time={note.time} id={note._id} delete={this.deleteNote.bind(this)} edit={this.saveEditedNote.bind(this)}></Note>);
+          noteMarkup.push(<Note videoID={videoID} key={note._id} note={note.note} displayTime={note.displayTime} time={note.time} id={note._id} delete={this.deleteNote.bind(this)} edit={this.saveEditedNote.bind(this)} youtube={(function(){return this.props.youtube}).bind(this)}></Note>);
       });
 
       this.sortNoteTime(noteMarkup);
@@ -45,7 +45,16 @@ export default class NoteHolder extends Component {
         note = res.data;
 
         this.setState({
-          "notes": this.state.notes.concat([<Note videoID={videoID} key={note._id} note={note.note} displayTime={note.displayTime} time={note.time} id={note._id} delete={this.deleteNote.bind(this)} edit={this.saveEditedNote.bind(this)}></Note>]).sort((a,b) => a.props.time > b.props.time),
+          "notes": this.state.notes.concat([<Note
+            videoID={videoID}
+            key={note._id}
+            note={note.note}
+            displayTime={note.displayTime}
+            time={note.time}
+            id={note._id}
+            delete={this.deleteNote.bind(this)}
+            edit={this.saveEditedNote.bind(this)}
+            youtube={(function(){return this.props.youtube}).bind(this)}></Note>]).sort((a,b) => a.props.time > b.props.time),
           "note": ""
         });
 

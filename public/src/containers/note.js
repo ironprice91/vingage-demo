@@ -24,10 +24,14 @@ export default class Note extends Component {
     });
   }
 
-  setVideoTime(e) {
+  setVideoTime(target, e) {
     e.preventDefault();
     let videoID = e.target.getAttribute("data-video-id");
     document.getElementById(videoID).currentTime = this.props.time;
+
+    if ( !target().target ) { return; }
+    target().target.seekTo(this.props.time);
+
   }
 
   render() {
@@ -44,7 +48,7 @@ export default class Note extends Component {
     ] : [
       <div key={`${noteID}-note-time`}>
         <p className="lead" >
-          <a data-video-id={this.props.videoID} href="#" onClick={this.setVideoTime.bind(this)}>{this.props.displayTime}</a> - {this.state.noteText}
+          <a data-video-id={this.props.videoID} href="#" onClick={this.setVideoTime.bind(this, this.props.youtube)}>{this.props.displayTime}</a> - {this.state.noteText}
         </p>
         <button  type="button" className="btn btn-success btn-xs" data-video-id={this.props.videoID} data-note-id={`${noteID}`} onClick={this.toggleEdit.bind(this)}>Edit</button>
       </div>
