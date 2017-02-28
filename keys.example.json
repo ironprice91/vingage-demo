@@ -1,0 +1,7 @@
+{
+  "mongoHost": "ds053894.mlab.com",
+  "mongoPort": "53894",
+  "mongoDatabase": "mydata",
+  "mongoUser": "myapp",
+  "mongoPass": "mypword",
+}
