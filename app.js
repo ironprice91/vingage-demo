@@ -14,6 +14,7 @@ mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/vingage");
 // react index.html
 const indexPath = path.join(__dirname, "/index.html");
 
+app.set("trust proxy", true);
 app.use("/public/", express.static(path.join(__dirname, "./public")));
 
 // enable CORS for dev since API is on different port

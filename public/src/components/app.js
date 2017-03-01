@@ -15,7 +15,8 @@ export default class App extends Component {
   }
 
   getVideos() {
-    axios.get("http://localhost:6060/api/video/all")
+    let baseURL = process.env.NODE_ENV === "dev" ? "http://localhost:6060" : "";
+    axios.get(`${baseURL}/api/video/all`)
       .then((res) => {
         this.setState({
           "videos": res.data,
