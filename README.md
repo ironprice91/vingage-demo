@@ -1,6 +1,6 @@
 # vingage-demo
 ___
-https://vingage-160122.appspot.com/
+https://vingage-demo.herokuapp.com/
 
 This webapp allows users to take notes on videos and save the time where they took the note.
 HTML5 videos and youtube videos are compatable with this app.
